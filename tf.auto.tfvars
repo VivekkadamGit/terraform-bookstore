@@ -22,7 +22,7 @@ vpc_single_nat_gateway = true # To save cost you can use single NAT gateway in p
 #ECS Variables
 ecs_cluster_name = "my-cluster"
 ecr_repo_name = "dotnet-application"
-ecs_service_name = "my-ecs-service"
+# ecs_service_name = "my-ecs-service"
 lc_instance_type = "t2.micro"
 lc_key_name = "1month" 
 # asg_scale_down_cooldown = 1200
@@ -36,3 +36,4 @@ ecs_cpu = 256
 ecs_memory = 512
 ecs_desired_count = 1
 sns_email = "vivek@gmail.com"
+ecs_service_name_host = "my-ecs-service_host"

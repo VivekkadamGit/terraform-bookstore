@@ -10,10 +10,29 @@ variable "ecr_repo_name" {
   default = "my-repo"
 }
 
-variable "ecs_service_name" {
-  description = "ecs service Name"
+variable "ecs_service_name_web" {
+  description = "ecs service Name of service web"
   type = string 
-  default = "my-ecs-service"
+  default = "my-ecs-service-web"
+}
+
+
+variable "ecs_service_name_auth" {
+  description = "ecs service Name of service auth"
+  type = string 
+  default = "my-ecs-service_auth"
+}
+
+variable "ecs_service_name_migration" {
+  description = "ecs service Name of service migration"
+  type = string 
+  default = "my-ecs-service_migration"
+}
+
+variable "ecs_service_name_host" {
+  description = "ecs service Name of service host"
+  type = string 
+  default = "my-ecs-service_host"
 }
 
 variable "lc_instance_type" {
