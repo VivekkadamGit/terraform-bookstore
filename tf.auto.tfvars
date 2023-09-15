@@ -1,4 +1,5 @@
 # VPC Variables
+
 # You can give the values here and that can be change inside the code.
 vpc_name = "bookstore-vpc"
 vpc_cidr_block = "10.0.0.0/16"
