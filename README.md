@@ -3,12 +3,13 @@
 
 You need to downloads the terraform binary to your Host and give the path to ENV. in the system.
 
+Please refer the "tf.auto.tfvars" file to change any variables .
+
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 5.16.2 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.5.1 |
 
 ## Modules
 
@@ -108,4 +109,35 @@ You need to downloads the terraform binary to your Host and give the path to ENV
 | <a name="output_public_subnets"></a> [public\_subnets](#output\_public\_subnets) | List of IDs of public subnets |
 | <a name="output_vpc_cidr_block"></a> [vpc\_cidr\_block](#output\_vpc\_cidr\_block) | The CIDR block of the VPC |
 | <a name="output_vpc_main_id"></a> [vpc\_main\_id](#output\_vpc\_main\_id) | The ID of the VPC |
+
+## Workflow
+
+
+We have used provides as AWS with ap-south-1 region. (can be change region by variable). The .tfstate file will be stored in s3 bucket as best practice.
+(We can add dynamodb to store the .terraform.lock.hcl file to prevent multiple proccess clash at same moment.)
+
+It will create one VPC for the application which will contains total 6 subnets
+2 as public subnets(Internet gateway will be attached), 2 as private subnets(NAT Gateway will be attached) and 2 as database subnets.
+
+There will be RDS as database, will use the database subnet. which will be publicly accessable so it can be used by its endpoints out of AWS service account.
+
+There will be ECS, which contains a cluster --> Cluster contains 4 services Auth, Migrator, Web and Host.
+(Their Port has not been changed due to application error)
+
+There will be ECR to store the images. Images will be pushed via github actions by building docker image in github runner.
+
+There will be ECS with EC2 type which needed EC2 instance with ECS agent and its proper IAM role. ASG created for with desired, min and max instance count. it will trigger via cloudwatch alarm
+
+There will be ALB with HTTP and HTTPS listners. HTTP(80) will be redirect to HTTPS(443) and HTTPS will be redirect to ALB target groups.
+
+
+Along with that, We have cloudwatch with SNS to the email which will give alert if given condition get fullfilled.
+
+
+
+
+
+
+
+
 <!-- END_TF_DOCS -->
