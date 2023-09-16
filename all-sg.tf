@@ -39,23 +39,23 @@ resource "aws_security_group" "ecs_sg" {
 
 #Security Group of RDS
 
-# resource "aws_security_group" "rds_secgrp" {
-#   name        = "${var.db_system_name} rds access"
-#   description = "RDS secgroup"
-#   vpc_id      = module.vpc.vpc_id
+resource "aws_security_group" "rds_secgrp" {
+  name        = "${var.db_system_name} rds access"
+  description = "RDS secgroup"
+  vpc_id      = module.vpc.vpc_id
 
-#   ingress {
-#     description = "VPC bound"
-#     from_port   = 5432
-#     to_port     = 5432
-#     protocol    = "tcp"
-#     cidr_blocks = [module.vpc.vpc_cidr_block]
-#   }
-#   egress{
-#     description = "https"
-#     from_port   = 0
-#     to_port     = 65535
-#     protocol    = "tcp"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-# }
+  ingress {
+    description = "VPC bound"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = [module.vpc.vpc_cidr_block]
+  }
+  egress{
+    description = "https"
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}

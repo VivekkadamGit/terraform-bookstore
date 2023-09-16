@@ -12,28 +12,27 @@ vpc_create_database_subnet_route_table = true
 vpc_single_nat_gateway = true # To save cost you can use single NAT gateway in private subnets.
 
 #RDS Variables
-# database_name = "database1"
-# database_master_username = "postgres"
-# cluster_instance_class = "db.t3.micro"
-# region = "ap-south-1"
-# db_system_name = "db1"
+database_name = "database1"
+database_master_username = "postgres"
+cluster_instance_class = "db.t3.micro"
+region = "ap-south-1"
+db_system_name = "db1"
 
 
 #ECS Variables
 ecs_cluster_name = "my-cluster"
 ecr_repo_name = "dotnet-application"
-# ecs_service_name = "my-ecs-service"
-lc_instance_type = "t2.micro"
+lc_instance_type = "t3.large"
 lc_key_name = "1month" 
 # asg_scale_down_cooldown = 1200
 # asg_scale_up_cooldown = 300
-asg_max_size = 3
-asg_min_size = 1
-asg_desired_capacity = 1
+asg_max_size = 5
+asg_min_size = 2
+asg_desired_capacity = 3
 target_value_for_scaleup = 60
 target_value_for_scaledown = 40
-ecs_cpu = 256
-ecs_memory = 512
+ecs_cpu = 512
+ecs_memory = 1024
 ecs_desired_count = 1
 sns_email = "vivek@gmail.com"
 ecs_service_name_host = "my-ecs-service_host"

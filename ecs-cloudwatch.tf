@@ -12,7 +12,6 @@ resource "aws_cloudwatch_metric_alarm" "ecs_cpu_alarm" {
 
   dimensions = {
     ClusterName        = var.ecs_cluster_name 
-    # ServiceName        = var.ecs_service_name
   }
 }
 

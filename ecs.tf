@@ -17,7 +17,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition1" {
 
   container_definitions = jsonencode([{
     name  = "${var.ecr_repo_name}"
-    image = "dotnet-application-web:latest"
+    image = "dotnet-application:latest"
     portMappings = [{
       containerPort = 80
       hostPort      = 80
@@ -43,7 +43,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition2" {
 
   container_definitions = jsonencode([{
     name  = "${var.ecr_repo_name}"
-    image = "dotnet-application-auth:latest"
+    image = "auth:latest"
     portMappings = [{
       containerPort = 80
       hostPort      = 80
@@ -68,7 +68,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition3" {
 
   container_definitions = jsonencode([{
     name  = "${var.ecr_repo_name}"
-    image = "dotnet-application-migrator:latest"
+    image = "migration:latest"
     portMappings = [{
       containerPort = 80
       hostPort      = 80
@@ -83,6 +83,13 @@ resource "aws_ecs_service" "ecs_service3" {
   desired_count   = var.ecs_desired_count
 }
 
+# resource "aws_ecs_task_set" "example" {
+#   service         = aws_ecs_service.example.id
+#   cluster         = aws_ecs_cluster.example.id
+#   task_definition = aws_ecs_task_definition.example.arn
+
+# }
+
 
 ###
 resource "aws_ecs_task_definition" "ecs_task_definition4" {
@@ -94,7 +101,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition4" {
 
   container_definitions = jsonencode([{
     name  = "${var.ecr_repo_name}"
-    image = "dotnet-application-host:latest"
+    image = "host:latest"
     portMappings = [{
       containerPort = 80
       hostPort      = 80
