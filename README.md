@@ -3,6 +3,8 @@
 
 You need to downloads the terraform binary to your Host and give the path to ENV. in the system.
 
+You can add AWS credentials to the "provider.tf" file or add via "aws configure" to your local env,
+
 Please refer the "tf.auto.tfvars" file to change any variables .
 
 ## Providers
@@ -112,6 +114,7 @@ Please refer the "tf.auto.tfvars" file to change any variables .
 
 ## Workflow
 
+VPC and RDS are created via terraform modules.
 
 We have used provides as AWS with ap-south-1 region. (can be change region by variable). The .tfstate file will be stored in s3 bucket as best practice.
 (We can add dynamodb to store the .terraform.lock.hcl file to prevent multiple proccess clash at same moment.)
@@ -119,24 +122,20 @@ We have used provides as AWS with ap-south-1 region. (can be change region by va
 It will create one VPC for the application which will contains total 6 subnets
 2 as public subnets(Internet gateway will be attached), 2 as private subnets(NAT Gateway will be attached) and 2 as database subnets.
 
-There will be RDS as database, will use the database subnet. which will be publicly accessable so it can be used by its endpoints out of AWS service account.
+There will be RDS as database, will use the database subnet. which will be publicly accessable so it can be used by its endpoints out of AWS service account. Security group as needed.
+
+All the sensitive data like db username, passwords will be stored in systems manager.
 
 There will be ECS, which contains a cluster --> Cluster contains 4 services Auth, Migrator, Web and Host.
 (Their Port has not been changed due to application error)
 
 There will be ECR to store the images. Images will be pushed via github actions by building docker image in github runner.
 
-There will be ECS with EC2 type which needed EC2 instance with ECS agent and its proper IAM role. ASG created for with desired, min and max instance count. it will trigger via cloudwatch alarm
+There will be ECS with EC2 type which needed EC2 instance with ECS agent and its proper IAM role. ASG created for with desired, min and max instance count. it will trigger via cloudwatch alarm. Security group as needed.
 
 There will be ALB with HTTP and HTTPS listners. HTTP(80) will be redirect to HTTPS(443) and HTTPS will be redirect to ALB target groups.
 
-
 Along with that, We have cloudwatch with SNS to the email which will give alert if given condition get fullfilled.
-
-
-
-
-
 
 
 
